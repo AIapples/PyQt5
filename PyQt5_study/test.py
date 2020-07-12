@@ -46,15 +46,17 @@ class FileDeal(QWidget):
                 self.export_button.clicked.connect(lambda: self.export_file(str(get_filename_path), "成功"))
             except Exception as e:
                 self.export_button.clicked.connect(lambda: self.export_file(str(get_filename_path), "失败，未知原因。"))
-        else:
+
+        elif not self.filepath_line_edit.text():
             self.export_button.clicked.connect(lambda: self.export_file(None, "失败，未导入文件。"))
 
     def prompt_box(self, is_success):
         # 提示导出成功
-        reply = QMessageBox.question(self, "Message", "导出{}, 是否退出？".format(is_success), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        reply = QMessageBox.question(self, "Message", "导出{}, 是否退出？".format(is_success), QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
         if reply == QMessageBox.Yes:
             self.close()
         elif reply == QMessageBox.No:
+            print(123)
             pass
 
     def export_file(self, file_path, is_success):
